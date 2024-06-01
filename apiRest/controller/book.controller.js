@@ -30,7 +30,7 @@ const getBooks = async (req, res, next) => {
 const addBooks = async (req, res, next) => {
     try {
         let sql = 'INSERT INTO apiBooks.book (id_user, title, type, author, price, photo) ' +
-                'VALUES ("' + req.body.id_user + '", "'+
+                'VALUES ("' + req.query.id_user + '", "'+
                 req.body.title + ' ", "' +
                 req.body.type + ' ", "' +
                 req.body.author + ' ", "' +
