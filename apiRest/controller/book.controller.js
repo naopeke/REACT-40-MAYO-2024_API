@@ -56,7 +56,7 @@ const addBooks = async (req, res, next) => {
 const updateBooks = async (req, res, next) => {
     try {
         console.log(req.body);
-        let params = [req.body.id_user,
+        let params = [req.query.id_user,
                     req.body.title,
                     req.body.type,
                     req.body.author,
