@@ -11,8 +11,8 @@ router.put('/profile', userCtrl.editUser);
 
 router.get('/books', bookCtrl.getBooks);
 router.post('/books', bookCtrl.addBooks);
-router.put('/books', bookCtrl.updateBooks);
-router.delete('/books', bookCtrl.deleteBooks);
+router.put('/books/:id_book', bookCtrl.updateBooks);
+router.delete('/books/:id_book', bookCtrl.deleteBooks);
 
 
 module.exports = router;

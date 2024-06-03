@@ -52,7 +52,8 @@ const addBooks = async (req, res, next) => {
 const updateBooks = async (req, res, next) => {
     try {
         console.log(req.body);
-        const { id_user, title, type, author, price, photo, id_book } = req.body;
+        const { id_user, title, type, author, price, photo } = req.body; // id_bookはreq.params.idから取得する
+        const id_book = req.params.id;
 
         let params = [
             id_user,
@@ -63,7 +64,7 @@ const updateBooks = async (req, res, next) => {
             photo,
             id_book
         ];
-        
+
         let sql = 'UPDATE apiBooks.book SET id_user = COALESCE(?, id_user), ' +
         'title = COALESCE(?, title), ' +
         'type = COALESCE(?, type) , ' +
@@ -87,7 +88,9 @@ const updateBooks = async (req, res, next) => {
 
 const deleteBooks = async (req, res, next) => {
     try {
-        let params = [req.body.id_book];
+        const id_book = req.params.id;
+
+        let params = [id_book];
         let sql = `DELETE FROM book WHERE id_book = ?`
         console.log(sql);
         let [result] = await pool.query(sql, params);
