@@ -29,15 +29,11 @@ const getBooks = async (req, res, next) => {
 
 const addBooks = async (req, res, next) => {
     try {
-        let sql = 'INSERT INTO apiBooks.book (id_user, title, type, author, price, photo) ' +
-                'VALUES ("' + req.query.id_user + '", "'+
-                req.body.title + ' ", "' +
-                req.body.type + ' ", "' +
-                req.body.author + ' ", "' +
-                req.body.price + ' ", "' +
-                req.body.photo + '")';
-        console.log(sql);
-        let [result] = await pool.query(sql);   
+        const { id_user, title, type, author, price, photo } = req.body;
+        let sql = 'INSERT INTO apiBooks.book (id_user, title, type, author, price, photo) VALUES (?, ?, ?, ?, ?, ?)';
+        let params = [id_user, title, type, author, price, photo];
+
+        let [result] = await pool.query(sql, params);
         console.log(result);
 
         if(result.insertId){
@@ -56,14 +52,18 @@ const addBooks = async (req, res, next) => {
 const updateBooks = async (req, res, next) => {
     try {
         console.log(req.body);
-        let params = [req.query.id_user,
-                    req.body.title,
-                    req.body.type,
-                    req.body.author,
-                    req.body.price,
-                    req.body.photo,
-                    req.body.id_book];
+        const { id_user, title, type, author, price, photo, id_book } = req.body;
 
+        let params = [
+            id_user,
+            title,
+            type,
+            author,
+            price,
+            photo,
+            id_book
+        ];
+        
         let sql = 'UPDATE apiBooks.book SET id_user = COALESCE(?, id_user), ' +
         'title = COALESCE(?, title), ' +
         'type = COALESCE(?, type) , ' +
